@@ -20,5 +20,9 @@ class Event(commands.Cog):
         print(f'{member} leave!')
         channel = self.bot.get_channel(int(jdata['Leave_channel']))
         await channel.send(f'{member} leave!')
+    @commands.Cog.listener()
+    async def on_message(self, msg):
+        if msg.content=='hi' and msg.author != self.bot.user:
+            await msg.channel.send('hi')
 async def setup(bot: commands.Bot):
     await bot.add_cog(Event(bot))
