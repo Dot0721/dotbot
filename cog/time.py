@@ -12,7 +12,7 @@ class Time(commands.Cog):
         self.bg_task = self.bot.loop.create_task(self.interval())
     async def interval(self):
         await self.bot.wait_until_ready()
-        self.channel = self.bot.get_channel(1254773032459829310)
+        self.channel = self.bot.get_channel(int(jdata['set_time_channel']))
         while not self.bot.is_closed():
             await self.channel.send("I'm working!!!")
             await asyncio.sleep(5)
