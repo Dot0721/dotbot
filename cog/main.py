@@ -25,6 +25,13 @@ class Main(commands.Cog):
         embed.set_thumbnail(url=f"{pic_url}")
         embed.set_footer(text="18+")
         await ctx.send(embed=embed)
-
+    @commands.command()
+    async def say(self,ctx,*,msg):
+        await ctx.message.delete()
+        await ctx.send(msg)
+    @commands.command()
+    async def clean(self,ctx,index:int):
+        await ctx.channel.purge(limit=index+1)
+        await ctx.send(f'clean {index} messages done.')
 async def setup(bot: commands.Bot):
     await bot.add_cog(Main(bot))
