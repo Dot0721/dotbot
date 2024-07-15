@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 import random
+import requests
 with open('setting.json', mode='r', encoding='utf8') as jfile:
     jdata = json.load(jfile)
 class Main(commands.Cog):
@@ -33,5 +34,15 @@ class Main(commands.Cog):
     async def clean(self,ctx,index:int):
         await ctx.channel.purge(limit=index+1)
         await ctx.send(f'clean {index} messages done.')
+    @commands.command()
+    async def test(self,ctx):
+        response=requests.get('https://api.jsonstorage.net/v1/json/cbb72183-db06-418e-86a0-2e13bb50ae64/57754650-6175-45ea-95d7-99b44169d253')
+        data=response.json()
+        print(data['test'])
+        data['test']="new test"
+        update=requests.put('https://api.jsonstorage.net/v1/json/cbb72183-db06-418e-86a0-2e13bb50ae64/57754650-6175-45ea-95d7-99b44169d253?apiKey=0af7aee9-ecc1-49a2-990f-0a6dfeac2a24',
+                            json=data
+                            )
+        print(update)
 async def setup(bot: commands.Bot):
     await bot.add_cog(Main(bot))
